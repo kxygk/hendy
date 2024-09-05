@@ -1,0 +1,149 @@
+{     ;; BATCH 1
+:S1   {:id    :CBR1A}
+:S2   {:id    :CBR1B}
+:S3   {:id    :CBR1C}
+:S4   {:id    :CBR1D}
+:S5   {:id    :CBR1E}
+:S6   {:id    :CBR1F}
+:S7   {:id    :CBR2A}
+:S8   {:id    :CBR2B}
+:S9   {:id    :CBR2C
+       :note "too much sample"}
+:S10  {:id    :CBR2D}
+:S11  {:id    :CBR2E}
+:S12  {:id    :CBR2F}
+:S13  {:id    :CBR4A}
+:S14  {:id    :CBR4B}
+:S15  {:id    :CBR4C}
+:S16  {:id    :CBR4D}
+:S17  {:id    :CBR4E}
+:S18  {:id    :CBR4F}
+:S19  {:id    :WLR1A}
+:S20  {:id    :WLR1B}
+:S21  {:id    :WLR1C}
+:S22  {:id    :WLR1D}
+:S23  {:id    :WLR1E}
+:S24  {:id    :WLR1F}
+:S25  {:id    :WLR2A}
+:S26  {:id    :WLR2B}
+:S27  {:id    :PTL2A}
+:S28  {:id    :PTL2B}
+:S29  {:id    :PTL2C}
+:S30  {:id    :PTL2D}
+:S31  {:id    :PTL2E}
+:S32  {:id    :PTL2F}
+:S33  {:id    :PTL1A}
+:S34  {:id    :PTL1B}
+:S35  {:id    :PTL1C}
+:S36  {:id    :PTL1D}
+:S37  {:id    :PTL1E}
+:S38  {:id    :THR1A}
+:S39  {:id    :BTL1C}
+:S40  {:id    :BTL1D}
+:S41  {:id    :THR1B}
+:S42  {:id    :BTL1F}
+:S43  {:id    :BTL2A}
+:S44  {:id    :THR1C}
+:S45  {:id    :BTL2C}
+:S46  {:id    :BTL2D}
+:S47  {:id    :THR1D}
+:S48  {:id    :LLL3F}
+:S49  {:id    :BTL3A}
+:S50  {:id    :BTL3B}
+:S51  {:id    :BTL3C}
+:S52  {:id    :BTL3D}
+:S53  {:id    :WLR3D}
+:S54  {:id    :BTL3F}
+:S55  {:id    :LLL1A}
+:S56  {:id    :LLL1B}
+:S57  {:id    :LLL1C}
+:S58  {:id    :LLL1D}
+:S59  {:id    :LLL1E}
+:S60  {:id    :LLL1F
+       :note  "too little sample"}
+:S61  {:id    :LLL2A}
+:S62  {:id    :LLL2B}
+:S63  {:id    :LLL2C}
+:S64  {:id    :LLL2D}
+:S65  {:id    :LLL2E}
+:S66  {:id    :LLL2F}
+:S67  {:id    :LLL3A}
+:S68  {:id    :LLL3B}
+:S69  {:id    :LLL3C}
+:S70  {:id    :LLL3D}
+:S71  {:id    :LLL3E}
+      ;; BATCH 2
+:s1   {:id    :PTR1A}
+:s2   {:id    :PTR1B
+       :note  "too much sample"}
+:s3   {:id    :PTR1C}
+:s4   {:id    :PTR1D}
+:s5   {:id    :PTR1E}
+:s6   {:id    :PTR1F}
+:s7   {:id    :PTR2A}
+:s8   {:id    :PTR2B}
+:s9   {:id    :PTR2C}
+:s10  {:id    :PTR2D}
+:s11  {:id    :PTR2E}
+:s12  {:id    :PTR2F}
+:s13  {:id    :THR2A}
+:s14  {:id    :THR2B}
+:s15  {:id    :THR2C}
+:s16  {:id    :THR2D}
+:s17  {:id    :THR2E}
+:s18  {:id    :THR2F
+       :note  "seems to have air"}
+:s19  {:id    :THR3A}
+:s20  {:id    :THR3B}
+:s21  {:id    :THR3C}
+:s22  {:id    :THR3D}
+:s23  {:id    :THR3E}
+:s24  {:id    :THR3F}
+:s25  {:id    :THR1E}
+:s26  {:id    :THR1F}
+:s27  {:id    :WLR2C}
+:s28  {:id    :WLR2CZ}
+:s29  {:id    :WLR2D
+       :note  "sample too small"}
+:s30  {:id    :WLR2DZ
+       :note  "sample too small"}
+:s31  {:id    :WLR2E}
+:s32  {:id    :WLR2EZ
+       :note  "sample too small"}
+:s33  {:id    :WLR2F}
+:s34  {:id    :WLR2FZ
+       :note  "sample very much too small. Reading will have issues"}
+:s35  {:id    :WLR3A}
+:s36  {:id    :WLR3AZ
+       :note  "sample too small"}
+:s37  {:id    :WLR3B}
+:s38  {:id    :WLR3BZ}
+:s39  {:id    :WLR3C}
+:s40  {:id    :WLR3CZ}
+:s41  {:id    :WLR3E}
+:s42  {:id    :WLR3EZ}
+:s43  {:id    :WLR3F}
+:s44  {:id    :WLR3FZ
+       :note  "sample very much too small. Reading will have issues"}
+:s45  {:id    :BTL1A}
+:s46  {:id    :BTL1A
+       :note  "Sample size too small"}
+:s47  {:id    :BTL1B}
+:s48  {:id    :BTL1BZ}
+:s49  {:id    :BTL1E
+       :note  "Sample seems to have air (or issue with needle)"}
+:s50  {:id    :BTL1EZ}
+:s51  {:id    :BTL2B}
+:s52  {:id    :BLT2E}
+:s53  {:id    :BTL2F}
+:s54  {:id    :BTL3E
+       :note  "Air? Weird values"}
+:s55  {:id    :PTL1F}
+:s56  {:id    :BTL2BZ}
+:s57  {:id    :BTL2EZ}
+:s58  {:id    :BTL2FZ
+       :note "Air?"}
+:s59  {:id    :BTL3EZ
+       :note "Air?"}
+:s60  {:id    :PTL1FZ
+       :note "Empty sample"}}
