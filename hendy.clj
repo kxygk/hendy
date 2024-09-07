@@ -1,6 +1,7 @@
 (ns hendy
   "Injesting Rainus data - and analysis"
-  (:use [clojure.set])
+  (:use [clojure.set]
+        [hashp.core])
   (:require [quickthing]
             [convertadoc]
             [tick.core       :as tick]
@@ -14,24 +15,29 @@
       slurp
       clojure.edn/read-string))
 
-(def samples
+(def sample-layers
+  "Sample layers from the drilling
+  Each layer has 6 drill holes: A-F" #p
   (-> "data/samples.edn"
       slurp
       clojure.edn/read-string))
 
-(def batch2sample (-> "data/batch2sample.edn"
-                      slurp
-                      clojure.edn/read-string))
+(def batch2sample
+  "Mapping of batch-id from each tray in the IRMS
+  to sample ids from the drilling" #p
+  (-> "data/batch2sample.edn"
+      slurp
+      clojure.edn/read-string))
 
 (def irms-corr
-  "IRMS data - corrected 'with respect to the VPDB values'"
+  "IRMS data - corrected 'with respect to the VPDB values'" #p
   (ds/concat (-> "data/Result_20240827_corrected.csv"
                  ds/->dataset)
              (-> "data/Result_20240822_corrected.csv"
                  ds/->dataset)))
 
 (def samples
-  "Samples with batch ids and with standards removed"
+  "Samples with batch ids and with standards removed" #p
   (-> irms-corr
       (ds/row-mapcat (fn add-sample-name-note
                        [row]
