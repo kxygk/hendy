@@ -1,0 +1,66 @@
+:imagesdir: fig/
+:!webfonts:
+:stylesheet: ../web/adoc.css
+:table-caption!:
+:reproducible:
+:nofooter:
+:svg-type: inline
+
+= Tham Murd Stalagmites
+
+== Overview
+
+Hendy performed on 2024-08-22 (Batch 1) and 2024-08-27 (Batch 2). Displaying drill locations and their corresponding dC and dO values. Values have been "calibrated with respect to the VPDB values" with the help of Phanindra Reddy.
+
+Each layer is indicated by a color, and each layer was drilled 6 times - A through F. A small handful of values are missing due to sample size issues.
+
+== #2 - WhiteLoner
+
+[.flexbox]
+====
+image::WL.jpg[]
+image::../out/WL.svg[]
+====
+
+== #3 - PairTall
+
+[.flexbox]
+====
+image::PT.jpg[]
+image::../out/PT.svg[]
+====
+
+
+== #5 - ConjoinedBottom
+
+[.flexbox]
+====
+image::CB.jpg[]
+image::../out/CB.svg[]
+====
+
+
+== #4 - Thumb
+
+[.flexbox]
+====
+image::TH.jpg[]
+image::../out/TH.svg[]
+====
+
+== #4 - LongLizard
+
+[.flexbox]
+====
+image::LL.jpg[]
+image::../out/LL.svg[]
+====
+
+
+== #1 - BrownTop
+
+[.flexbox]
+====
+image::BT.jpg[]
+image::../out/BT.svg[]
+====
