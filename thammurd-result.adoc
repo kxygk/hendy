@@ -6,13 +6,15 @@
 :nofooter:
 :svg-type: inline
 
-= Tham Murd Stalagmites
+= Tham Murd stalagmite Hendy test results
 
 == Overview
 
-Hendy performed on 2024-08-22 (Batch 1) and 2024-08-27 (Batch 2). Displaying drill locations and their corresponding dC and dO values. Values have been "calibrated with respect to the VPDB values" with the help of Phanindra Reddy.
+Hendy performed on *2024-08-22* (Batch 1) and *2024-08-27* (Batch 2). Displaying drill locations and their corresponding dC and dO values. Values have been "calibrated with respect to the VPDB values" with the help of Phanindra Reddy.
 
-Each layer is indicated by a color, and each layer was drilled 6 times - A through F. A small handful of values are missing due to sample size issues.
+Each layer is indicated by a color, and each layer was drilled 6 times - *A through F*. A small handful of values are missing due to sample size issues.
+
+Values with a *RED CIRCLE BACKGROUND* indicate that the measurement may have had some issue either with sample size or contamination during purging
 
 == #2 - WhiteLoner
 
