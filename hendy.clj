@@ -117,7 +117,16 @@
                                       (layer-samples speleo-key
                                                      layer
                                                      samples)))
-                              (mapv table2dO-dC-letter-triplet))]
+                              (mapv table2dO-dC-letter-triplet))
+        messy-points  (->> layers
+                           (mapv (fn layer-keys
+                                   [layer]
+                                   (-> (layer-samples speleo-key
+                                                      layer
+                                                      samples)
+                                       (ds/filter-column :sample-note
+                                                         some?))))
+                           (mapv table2dO-dC-letter-triplet))]
     (let [axis (quickthing/primary-axis (cond-> (apply concat per-layer-points)
                                           (and (some? x-min) ;; conditionally add dummy for min/max
                                                (some? y-min)) (conj [x-min
@@ -128,18 +137,31 @@
                                         {:x-name "d-Oxygen"
                                          :y-name "d-Carbon"
                                          :title  (str (symbol speleo-key))})]
-      (->> (update axis
-                   :data
-                   (fn [old-data]
-                     (into old-data
-                           (flatten (mapv (fn points-to-colored-text
-                                            [layer-points
-                                             color]
-                                            (quickthing/adjustable-text layer-points
-                                                                        {:scale   64
-                                                                         :attribs {:fill color}}))
-                                          per-layer-points
-                                          colors)))))
+      (->> (-> axis
+               (update :data
+                       (fn [old-data]
+                         (into old-data
+                               (flatten (mapv (fn points-to-colored-text
+                                                [layer-points
+                                                 color]
+                                                (-> #p (mapv #(vector (first %)
+                                                                      (second %))
+                                                          layer-points)
+                                                    (quickthing/adjustable-circles {:scale   48
+                                                                                    :attribs {:fill "#8004"}})))
+                                              messy-points
+                                              colors)))))
+               (update :data
+                       (fn [old-data]
+                         (into old-data
+                               (flatten (mapv (fn points-to-colored-text
+                                                [layer-points
+                                                 color]
+                                                (quickthing/adjustable-text #p layer-points
+                                                                            {:scale   64
+                                                                             :attribs {:fill color}}))
+                                              per-layer-points
+                                              colors))))))
            thi.ng.geom.viz.core/svg-plot2d-cartesian
            quickthing/svg-wrap
            quickthing/svg2xml

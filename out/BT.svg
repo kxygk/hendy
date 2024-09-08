@@ -24,6 +24,14 @@
 <text dominant-baseline="hanging" dx="18.0" dy="18.0" fill="black" font-family="Arial, sans-serif" font-size="18.0" font-style="italic" stroke="none" text-anchor="beginning" text-orientation="sideways" x="50.00" y="30.00">d-Carbon</text>
 </g>
 <g>
+<circle cx="942.25" cy="268.35" fill="#8004" r="16.0" />
+</g>
+<g>
+</g>
+<g>
+<circle cx="622.46" cy="317.42" fill="#8004" r="16.0" />
+</g>
+<g>
 <text dominant-baseline="central" fill="#15b01a" font-size="21.333333333333332" stroke="none" text-anchor="middle" x="666.54" y="222.09">A</text>
 <text dominant-baseline="central" fill="#15b01a" font-size="21.333333333333332" stroke="none" text-anchor="middle" x="676.31" y="247.41">B</text>
 <text dominant-baseline="central" fill="#15b01a" font-size="21.333333333333332" stroke="none" text-anchor="middle" x="768.08" y="269.65">D</text>
