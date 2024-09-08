@@ -16,7 +16,7 @@ Each layer is indicated by a color, and each layer was drilled 6 times - *A thro
 
 Values with a *RED CIRCLE BACKGROUND* indicate that the measurement may have had some issue either with sample size or contamination during purging
 
-== #2 - WhiteLoner
+== WhiteLoner
 
 [.flexbox]
 ====
@@ -24,7 +24,7 @@ image::WL.jpg[]
 image::../out/WL.svg[]
 ====
 
-== #3 - PairTall
+== PairTall
 
 [.flexbox]
 ====
@@ -33,7 +33,7 @@ image::../out/PT.svg[]
 ====
 
 
-== #5 - ConjoinedBottom
+== ConjoinedBottom
 
 [.flexbox]
 ====
@@ -42,7 +42,7 @@ image::../out/CB.svg[]
 ====
 
 
-== #4 - Thumb
+== Thumb
 
 [.flexbox]
 ====
@@ -50,7 +50,7 @@ image::TH.jpg[]
 image::../out/TH.svg[]
 ====
 
-== #4 - LongLizard
+== LongLizard
 
 [.flexbox]
 ====
@@ -59,7 +59,7 @@ image::../out/LL.svg[]
 ====
 
 
-== #1 - BrownTop
+== BrownTop
 
 [.flexbox]
 ====
