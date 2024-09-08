@@ -39,7 +39,10 @@
 <text dominant-baseline="central" fill="#15b01a" font-size="21.333333333333332" stroke="none" text-anchor="middle" x="718.01" y="140.31">F</text>
 </g>
 <g>
-<text dominant-baseline="central" fill="#f97306" font-size="21.333333333333332" stroke="none" text-anchor="middle" x="445.76" y="327.06">D</text>
+<g>
+<text dominant-baseline="central" fill="#f97306" font-size="21.333333333333332" stroke="none" text-anchor="middle" tooltip="sample too small" x="445.76" y="327.06">D</text>
+<title>sample too small</title>
+</g>
 <text dominant-baseline="central" fill="#f97306" font-size="21.333333333333332" stroke="none" text-anchor="middle" x="615.72" y="336.30">E</text>
 <text dominant-baseline="central" fill="#f97306" font-size="21.333333333333332" stroke="none" text-anchor="middle" x="626.72" y="333.65">B</text>
 <text dominant-baseline="central" fill="#f97306" font-size="21.333333333333332" stroke="none" text-anchor="middle" x="641.96" y="365.02">F</text>

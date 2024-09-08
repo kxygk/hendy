@@ -41,7 +41,10 @@
 <g>
 <text dominant-baseline="central" fill="#f97306" font-size="21.333333333333332" stroke="none" text-anchor="middle" x="606.35" y="297.63">D</text>
 <text dominant-baseline="central" fill="#f97306" font-size="21.333333333333332" stroke="none" text-anchor="middle" x="615.64" y="277.02">E</text>
-<text dominant-baseline="central" fill="#f97306" font-size="21.333333333333332" stroke="none" text-anchor="middle" x="667.62" y="240.79">F</text>
+<g>
+<text dominant-baseline="central" fill="#f97306" font-size="21.333333333333332" stroke="none" text-anchor="middle" tooltip="seems to have air" x="667.62" y="240.79">F</text>
+<title>seems to have air</title>
+</g>
 <text dominant-baseline="central" fill="#f97306" font-size="21.333333333333332" stroke="none" text-anchor="middle" x="672.46" y="263.02">B</text>
 <text dominant-baseline="central" fill="#f97306" font-size="21.333333333333332" stroke="none" text-anchor="middle" x="680.53" y="315.44">C</text>
 <text dominant-baseline="central" fill="#f97306" font-size="21.333333333333332" stroke="none" text-anchor="middle" x="684.78" y="230.98">A</text>

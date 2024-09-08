@@ -54,7 +54,10 @@
 <text dominant-baseline="central" fill="#bf77f6" font-size="21.333333333333332" stroke="none" text-anchor="middle" x="222.09" y="175.58">F</text>
 <text dominant-baseline="central" fill="#bf77f6" font-size="21.333333333333332" stroke="none" text-anchor="middle" x="267.81" y="177.20">C</text>
 <text dominant-baseline="central" fill="#bf77f6" font-size="21.333333333333332" stroke="none" text-anchor="middle" x="300.16" y="75.00">A</text>
-<text dominant-baseline="central" fill="#bf77f6" font-size="21.333333333333332" stroke="none" text-anchor="middle" x="300.29" y="155.57">B</text>
+<g>
+<text dominant-baseline="central" fill="#bf77f6" font-size="21.333333333333332" stroke="none" text-anchor="middle" tooltip="too much sample" x="300.29" y="155.57">B</text>
+<title>too much sample</title>
+</g>
 </g>
 <g>
 <text dominant-baseline="central" fill="#cb416b" font-size="21.333333333333332" stroke="none" text-anchor="middle" x="50.00" y="195.20">C</text>

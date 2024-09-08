@@ -83,7 +83,8 @@
   and put it into a 3 term vector
   [dO_corrected
    dC_corrected
-   last letter of key]"
+   last letter of key
+   tooltop with `:sample-note` is applicable]"
   [table]
   (->> table
        ds/rows
@@ -100,7 +101,8 @@
                                       "dC_corrected")]
                 [dO
                  dC
-                 drill-letter])))))
+                 drill-letter
+                 {:tooltip (:sample-note row)}])))))
 
 (defn
   plot-speleo
