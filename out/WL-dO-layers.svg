@@ -1,0 +1,83 @@
+<?xml version="1.0"?>
+<svg version="1.1" viewBox="0 0 1000 600" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg">
+<g>
+<g stroke-dasharray="3.6 7.2" stroke-width="0.72" stroke="#caa">
+<line x1="125.00" x2="125.00" y1="570.00" y2="30.00" />
+<line x1="275.00" x2="275.00" y1="570.00" y2="30.00" />
+<line x1="425.00" x2="425.00" y1="570.00" y2="30.00" />
+<line x1="575.00" x2="575.00" y1="570.00" y2="30.00" />
+<line x1="725.00" x2="725.00" y1="570.00" y2="30.00" />
+<line x1="875.00" x2="875.00" y1="570.00" y2="30.00" />
+<line x1="50.00" x2="950.00" y1="474.04" y2="474.04" />
+<line x1="50.00" x2="950.00" y1="336.13" y2="336.13" />
+<line x1="50.00" x2="950.00" y1="198.23" y2="198.23" />
+<line x1="50.00" x2="950.00" y1="60.32" y2="60.32" />
+</g>
+<g>
+<text dominant-baseline="hanging" dx="-36.0" dy="18.0" fill="#0004" font-family="Arial, sans-serif" font-size="36" stroke="none" text-anchor="end" x="950.00" y="75.00">WL</text>
+</g>
+<g>
+<text dominant-baseline="text-bottom" dy="-12.0" fill="black" font-family="Arial, sans-serif" font-size="18.0" font-style="italic" stroke="none" text-anchor="middle" x="500.00" y="30.00">Relative Positions</text>
+</g>
+<g>
+<text dominant-baseline="hanging" dx="18.0" dy="18.0" fill="black" font-family="Arial, sans-serif" font-size="18.0" font-style="italic" stroke="none" text-anchor="beginning" text-orientation="sideways" x="50.00" y="30.00">d-Oxygen</text>
+</g>
+<polyline fill="none" points="125.00,195.81 275.00,209.01 425.00,217.76 575.00,217.29 725.00,208.13 875.00,190.99" stroke-dasharray="3.2 3.2" stroke-width="3.2" stroke="#aaa" />
+<polyline fill="none" points="125.00,163.84 275.00,236.64 425.00,199.31 575.00,327.12 725.00,242.14 875.00,229.02" stroke-dasharray="3.2 3.2" stroke-width="3.2" stroke="#aaa" />
+<polyline fill="none" points="125.00,154.49 275.00,231.13 425.00,253.90 575.00,203.77 725.00,249.21 875.00,333.53" stroke-dasharray="3.2 3.2" stroke-width="3.2" stroke="#aaa" />
+<g>
+<text dominant-baseline="central" fill="#15b01a" font-size="21.333333333333332" stroke="none" text-anchor="middle" x="125.00" y="195.81">A</text>
+<text dominant-baseline="central" fill="#15b01a" font-size="21.333333333333332" stroke="none" text-anchor="middle" x="275.00" y="209.01">B</text>
+<text dominant-baseline="central" fill="#15b01a" font-size="21.333333333333332" stroke="none" text-anchor="middle" x="425.00" y="217.76">C</text>
+<text dominant-baseline="central" fill="#15b01a" font-size="21.333333333333332" stroke="none" text-anchor="middle" x="575.00" y="217.29">D</text>
+<text dominant-baseline="central" fill="#15b01a" font-size="21.333333333333332" stroke="none" text-anchor="middle" x="725.00" y="208.13">E</text>
+<text dominant-baseline="central" fill="#15b01a" font-size="21.333333333333332" stroke="none" text-anchor="middle" x="875.00" y="190.99">F</text>
+</g>
+<g>
+<text dominant-baseline="central" fill="#f97306" font-size="21.333333333333332" stroke="none" text-anchor="middle" x="125.00" y="163.84">A</text>
+<text dominant-baseline="central" fill="#f97306" font-size="21.333333333333332" stroke="none" text-anchor="middle" x="275.00" y="236.64">B</text>
+<text dominant-baseline="central" fill="#f97306" font-size="21.333333333333332" stroke="none" text-anchor="middle" x="425.00" y="199.31">C</text>
+<text dominant-baseline="central" fill="#f97306" font-size="21.333333333333332" stroke="none" text-anchor="middle" x="575.00" y="327.12">D</text>
+<text dominant-baseline="central" fill="#f97306" font-size="21.333333333333332" stroke="none" text-anchor="middle" x="725.00" y="242.14">E</text>
+<text dominant-baseline="central" fill="#f97306" font-size="21.333333333333332" stroke="none" text-anchor="middle" x="875.00" y="229.02">F</text>
+</g>
+<g>
+<text dominant-baseline="central" fill="#bf77f6" font-size="21.333333333333332" stroke="none" text-anchor="middle" x="125.00" y="154.49">A</text>
+<text dominant-baseline="central" fill="#bf77f6" font-size="21.333333333333332" stroke="none" text-anchor="middle" x="275.00" y="231.13">B</text>
+<text dominant-baseline="central" fill="#bf77f6" font-size="21.333333333333332" stroke="none" text-anchor="middle" x="425.00" y="253.90">C</text>
+<text dominant-baseline="central" fill="#bf77f6" font-size="21.333333333333332" stroke="none" text-anchor="middle" x="575.00" y="203.77">D</text>
+<text dominant-baseline="central" fill="#bf77f6" font-size="21.333333333333332" stroke="none" text-anchor="middle" x="725.00" y="249.21">E</text>
+<text dominant-baseline="central" fill="#bf77f6" font-size="21.333333333333332" stroke="none" text-anchor="middle" x="875.00" y="333.53">F</text>
+</g>
+<g stroke="black">
+<line x1="125.00" x2="125.00" y1="570.00" y2="580.00" />
+<line x1="275.00" x2="275.00" y1="570.00" y2="580.00" />
+<line x1="425.00" x2="425.00" y1="570.00" y2="580.00" />
+<line x1="575.00" x2="575.00" y1="570.00" y2="580.00" />
+<line x1="725.00" x2="725.00" y1="570.00" y2="580.00" />
+<line x1="875.00" x2="875.00" y1="570.00" y2="580.00" />
+<g fill="black" font-family="Arial, sans-serif" font-size="18.0" stroke="none" text-anchor="start" transform="translate(9.0 0.0)">
+<text x="125.00" y="590.57">0</text>
+<text x="275.00" y="590.57">1</text>
+<text x="425.00" y="590.57">2</text>
+<text x="575.00" y="590.57">3</text>
+<text x="725.00" y="590.57">4</text>
+<text x="875.00" y="590.57">5</text>
+</g>
+<line x1="50.00" x2="950.00" y1="570.00" y2="570.00" />
+</g>
+<g stroke="black">
+<line x1="50.00" x2="38.00" y1="474.04" y2="474.04" />
+<line x1="50.00" x2="38.00" y1="336.13" y2="336.13" />
+<line x1="50.00" x2="38.00" y1="198.23" y2="198.23" />
+<line x1="50.00" x2="38.00" y1="60.32" y2="60.32" />
+<g fill="black" font-family="Arial, sans-serif" font-size="18.0" stroke="none" text-anchor="end">
+<text x="41.00" y="465.04">-7</text>
+<text x="41.00" y="327.13">-6</text>
+<text x="41.00" y="189.23">-5</text>
+<text x="41.00" y="51.32">-4</text>
+</g>
+<line x1="50.00" x2="50.00" y1="570.00" y2="30.00" />
+</g>
+</g>
+</svg>
