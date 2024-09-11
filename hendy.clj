@@ -181,95 +181,12 @@
                  first
                  second)
              samples)
-;; => {:x-axis
-;;     {:scale #function[thi.ng.geom.viz.core/linear-scale/fn--39066],
-;;      :major-size 10,
-;;      :pos 570.0,
-;;      :major (-7.0 -6.0 -5.0),
-;;      :label-dist 20.571428571428573,
-;;      :attribs {:stroke "black"},
-;;      :label #function[thi.ng.geom.viz.core/default-svg-label/fn--39038],
-;;      :label-style
-;;      {:fill "black",
-;;       :stroke "none",
-;;       :font-family "Arial, sans-serif",
-;;       :font-size 18.0,
-;;       :text-anchor "start",
-;;       :transform "translate(9.0 0.0)"},
-;;      :minor nil,
-;;      :domain [-7.36952641537735 -4.47690577325682],
-;;      :minor-size 5,
-;;      :visible true,
-;;      :range [50.0 950.0]},
-;;     :y-axis
-;;     {:scale #function[thi.ng.geom.viz.core/linear-scale/fn--39066],
-;;      :major-size 12.0,
-;;      :pos 50.0,
-;;      :major (-10.0 -9.0 -8.0 -7.0 -6.0 -5.0),
-;;      :label-dist 9.0,
-;;      :attribs {:stroke "black"},
-;;      :label #function[thi.ng.geom.viz.core/default-svg-label/fn--39038],
-;;      :label-style
-;;      {:fill "black",
-;;       :stroke "none",
-;;       :font-family "Arial, sans-serif",
-;;       :font-size 18.0,
-;;       :text-anchor "end"},
-;;      :minor nil,
-;;      :domain [-10.528151359653489 -4.95521406789481],
-;;      :minor-size 5,
-;;      :label-y -9.0,
-;;      :visible true,
-;;      :range [570.0 30.0]},
-;;     :grid
-;;     {:attribs
-;;      {:stroke "#caa", :stroke-dasharray "3.6 7.2", :stroke-width 0.72},
-;;      :minor-x true,
-;;      :minor-y true},
-;;     :data
-;;     [[{:values
-;;        ([-5.09118384732329 -7.08277521974613 \F]
-;;         [-4.47690577325682 -7.83151862412412 \A]
-;;         [-5.0106014634137 -7.44407390125851 \B]
-;;         [-5.87210554292892 -7.65495310123609 \C]
-;;         [-5.56399072147304 -7.90480997324745 \D]
-;;         [-5.56327459173114 -7.52502752779019 \E]),
-;;        :shape #function[quickthing/adjustable-text/fn--39524],
-;;        :layout #function[thi.ng.geom.viz.core/svg-scatter-plot]}]
-;;      [{:values
-;;        ([-5.20341939642241 -8.71601195104431 \A]
-;;         [-6.1188122390162 -9.65630664604704 \B]
-;;         [-5.75806188153009 -10.0637399186736 \C]
-;;         [-4.96727561402827 -9.31117102017535 \D]
-;;         [-4.90085458046631 -8.61257120603161 \E]
-;;         [-5.26339526230719 -8.67087114283426 \F]),
-;;        :shape #function[quickthing/adjustable-text/fn--39524],
-;;        :layout #function[thi.ng.geom.viz.core/svg-scatter-plot]}]
-;;      [{:values
-;;        ([-6.46255281419141 -5.4196255088747 \A]
-;;         [-6.46206900278289 -6.53463883482173 \B]
-;;         [-6.57984252279972 -6.83404302054678 \C]
-;;         [-6.81798140966473 -7.28052644144172 \D]
-;;         [-6.8245474216375 -7.01674663931425 \E]
-;;         [-6.74558248817552 -6.81156612614272 \F]),
-;;        :shape #function[quickthing/adjustable-text/fn--39524],
-;;        :layout #function[thi.ng.geom.viz.core/svg-scatter-plot]}]
-;;      [{:values
-;;        ([-6.82351068290496 -6.22955732421765 \A]
-;;         [-7.21678024211609 -6.4707606297502 \B]
-;;         [-7.36952641537735 -7.08314809988756 \C]
-;;         [-7.34554979678902 -6.82638390068765 \D]
-;;         [-6.86451733458201 -6.74926699548987 \E]
-;;         [-6.69218814644062 -6.04203218505496 \F]),
-;;        :shape #function[quickthing/adjustable-text/fn--39524],
-;;        :layout #function[thi.ng.geom.viz.core/svg-scatter-plot]}]]}
-
 
 (def
   all-samples-as-points
   (-> samples
       table2dO-dC-letter-triplet))
-
+#_
 (->> sample-layers
      (mapv (fn plot-each-speleo
              [[speleo-key
@@ -292,10 +209,14 @@
                   quickthing/svg2xml
                   (spit (str "out/"
                              (symbol speleo-key)
+                             "-dOdC-"
                              ".svg"))))))
 
 (defn
   off-center-dO-plot
+  "Just uses the drill order
+  ie. A, B, C ... F
+  For the X axis"
   [speleo-key
    layers
    samples
@@ -358,19 +279,6 @@
                                           (some? width)  (assoc :width width)
                                           (some? height) (assoc :height height)))]
       (->> (-> axis
-               #_(update :data
-                         (fn [old-data]
-                           (into old-data
-                                 (flatten (mapv (fn points-to-colored-text
-                                                  [layer-points
-                                                   color]
-                                                  (-> (mapv #(vector (first %)
-                                                                     (second %))
-                                                            layer-points)
-                                                      (quickthing/adjustable-circles {:scale   48
-                                                                                      :attribs {:fill "#8004"}})))
-                                                messy-points
-                                                colors)))))
                (update :data
                        (fn [old-data]
                          (into old-data
@@ -401,6 +309,7 @@
 
 (defn
   off-center-dC-plot
+  "tbh.. it's the above function with a few tweaks"
   [speleo-key
    layers
    samples
@@ -463,19 +372,6 @@
                                           (some? width)  (assoc :width width)
                                           (some? height) (assoc :height height)))]
       (->> (-> axis
-               #_(update :data
-                         (fn [old-data]
-                           (into old-data
-                                 (flatten (mapv (fn points-to-colored-text
-                                                  [layer-points
-                                                   color]
-                                                  (-> (mapv #(vector (first %)
-                                                                     (second %))
-                                                            layer-points)
-                                                      (quickthing/adjustable-circles {:scale   48
-                                                                                      :attribs {:fill "#8004"}})))
-                                                messy-points
-                                                colors)))))
                (update :data
                        (fn [old-data]
                          (into old-data
@@ -502,7 +398,7 @@
                (quickthing/svg-wrap [width
                                      height]
                                     width))))))
-
+#_
 (->> sample-layers
      (mapv (fn plot-each-speleo
              [[speleo-key
@@ -544,6 +440,8 @@
                              "-dC-layers"
                              ".svg"))))))
 
+;; glue together the two smaller plot
+;; then tack on the larger plot
 (->> sample-layers
      (mapv (fn plot-each-speleo
              [[speleo-key
