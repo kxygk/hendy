@@ -388,12 +388,7 @@
                                               colors)))))
                thi.ng.geom.viz.core/svg-plot2d-cartesian
                (quickthing/svg-wrap [width
-                                     height]))
-           quickthing/svg2xml
-           (spit (str "out/"
-                      (symbol speleo-key)
-                      "-dO-layers"
-                      ".svg"))))))
+                                     height]))))))
 
 
 (defn
@@ -497,40 +492,45 @@
                                               colors)))))
                thi.ng.geom.viz.core/svg-plot2d-cartesian
                (quickthing/svg-wrap [width
-                                     height]))
-               quickthing/svg2xml
-               (spit (str "out/"
-                          (symbol speleo-key)
-                          "-dC-layers"
-                          ".svg"))))))
+                                     height]))))))
 
 (->> sample-layers
      (mapv (fn plot-each-speleo
              [[speleo-key
                layer-list]]
-             (off-center-dO-plot speleo-key
-                              layer-list
-                              samples
-                              {:width 500
-                               :height 500
-                               :x-min -0.5
-                               :x-max 5.5
-                               :y-min (->> all-samples-as-points
-                                       (mapv first)
-                                       (apply min))
-                               :y-max (->> all-samples-as-points
-                                           (mapv first)
-                                           (apply max))})
-             (off-center-dC-plot speleo-key
-                              layer-list
-                              samples
-                              {:width 500
-                               :height 500
-                               :x-min -0.5
-                               :x-max 5.5
-                               :y-min (->> all-samples-as-points
-                                       (mapv first)
-                                       (apply min))
-                               :y-max (->> all-samples-as-points
-                                           (mapv first)
-                                           (apply max))}))))
+             (->> (off-center-dO-plot speleo-key
+                                      layer-list
+                                      samples
+                                      {:width  500
+                                       :height 500
+                                       :x-min  -0.5
+                                       :x-max  5.5
+                                       :y-min  (->> all-samples-as-points
+                                                    (mapv first)
+                                                    (apply min))
+                                       :y-max  (->> all-samples-as-points
+                                                    (mapv first)
+                                                    (apply max))})
+                  quickthing/svg2xml
+                  (spit (str "out/"
+                             (symbol speleo-key)
+                             "-dO-layers"
+                             ".svg")))
+             (->> (off-center-dC-plot speleo-key
+                                      layer-list
+                                      samples
+                                      {:width  500
+                                       :height 500
+                                       :x-min  -0.5
+                                       :x-max  5.5
+                                       :y-min  (->> all-samples-as-points
+                                                    (mapv first)
+                                                    (apply min))
+                                       :y-max  (->> all-samples-as-points
+                                                    (mapv first)
+                                                    (apply max))})
+                  quickthing/svg2xml
+                  (spit (str "out/"
+                             (symbol speleo-key)
+                             "-dC-layers"
+                             ".svg"))))))
