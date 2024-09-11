@@ -396,6 +396,114 @@
                       ".svg"))))))
 
 
+(defn
+  off-center-dC-plot
+  [speleo-key
+   layers
+   samples
+   & [{:keys [width
+              height
+              x-min
+              x-max
+              y-min
+              y-max]}]]
+  (let [per-layer-points (->> layers
+                              (mapv (fn layer-keys
+                                      [layer]
+                                      (layer-samples speleo-key
+                                                     layer
+                                                     samples)))
+                              (mapv table2dO-dC-letter-triplet)
+                              (sort #(compare (-> %1
+                                                  (get 2))
+                                              (-> %2
+                                                  (get 2))))
+                              (mapv (fn [layer]
+                                      (->> layer
+                                           (map-indexed (fn make-x-pos
+                                                          [pos-index
+                                                           values]
+                                                          (let [drill-letter #p (-> values
+                                                                                    (get 2))
+                                                                letter2index {\A 0
+                                                                              \B 1
+                                                                              \C 2
+                                                                              \D 3
+                                                                              \E 4
+                                                                              \F 5}]
+                                                            [(get letter2index
+                                                                  drill-letter)
+                                                             (-> values
+                                                                 second)
+                                                             drill-letter])))
+                                           (sort-by first)))))
+        messy-points     (->> layers
+                              (mapv (fn layer-keys
+                                      [layer]
+                                      (-> (layer-samples speleo-key
+                                                         layer
+                                                         samples)
+                                          (ds/filter-column :sample-note
+                                                            some?))))
+                              (mapv table2dO-dC-letter-triplet))]
+    (let [axis (quickthing/primary-axis (cond-> (apply concat
+                                                       per-layer-points)
+                                          (and (some? x-min) ;; conditionally add dummy for min/max
+                                               (some? y-min)) (conj [x-min
+                                                                     y-min])
+                                          (and (some? x-max)
+                                               (some? y-max)) (conj [x-max
+                                                                     y-max]))
+                                        (cond-> {:x-name "Relative Positions"
+                                                 :y-name "d-Carbon"
+                                                 :title  (str (symbol speleo-key))}
+                                          (some? width)  (assoc :width width)
+                                          (some? height) (assoc :height height)))]
+      (->> (-> axis
+               #_(update :data
+                         (fn [old-data]
+                           (into old-data
+                                 (flatten (mapv (fn points-to-colored-text
+                                                  [layer-points
+                                                   color]
+                                                  (-> (mapv #(vector (first %)
+                                                                     (second %))
+                                                            layer-points)
+                                                      (quickthing/adjustable-circles {:scale   48
+                                                                                      :attribs {:fill "#8004"}})))
+                                                messy-points
+                                                colors)))))
+               (update :data
+                       (fn [old-data]
+                         (into old-data
+                               (flatten (mapv (fn points-to-colored-text
+                                                [layer-points
+                                                 color]
+                                                (quickthing/dashed-line layer-points
+                                                                        {:scale   32
+                                                                         :attribs {:fill color}}))
+                                              per-layer-points
+                                              colors)))))
+               (update :data
+                       (fn [old-data]
+                         (into old-data
+                               (flatten (mapv (fn points-to-colored-text
+                                                [layer-points
+                                                 color]
+                                                (quickthing/adjustable-text layer-points
+                                                                            {:scale   64
+                                                                             :attribs {:fill color}}))
+                                              per-layer-points
+                                              colors)))))
+               thi.ng.geom.viz.core/svg-plot2d-cartesian
+               (quickthing/svg-wrap [width
+                                     height]))
+               quickthing/svg2xml
+               (spit (str "out/"
+                          (symbol speleo-key)
+                          "-dC-layers"
+                          ".svg"))))))
+
 (->> sample-layers
      (mapv (fn plot-each-speleo
              [[speleo-key
@@ -403,7 +511,22 @@
              (off-center-dO-plot speleo-key
                               layer-list
                               samples
-                              {:x-min -0.5
+                              {:width 500
+                               :height 500
+                               :x-min -0.5
+                               :x-max 5.5
+                               :y-min (->> all-samples-as-points
+                                       (mapv first)
+                                       (apply min))
+                               :y-max (->> all-samples-as-points
+                                           (mapv first)
+                                           (apply max))})
+             (off-center-dC-plot speleo-key
+                              layer-list
+                              samples
+                              {:width 500
+                               :height 500
+                               :x-min -0.5
                                :x-max 5.5
                                :y-min (->> all-samples-as-points
                                        (mapv first)
