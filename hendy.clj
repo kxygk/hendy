@@ -543,3 +543,57 @@
                              (symbol speleo-key)
                              "-dC-layers"
                              ".svg"))))))
+
+(->> sample-layers
+     (mapv (fn plot-each-speleo
+             [[speleo-key
+               layer-list]]
+             (->> (quickthing/group-plots-grid [[(quickthing/group-plots-grid [[(off-center-dO-plot speleo-key
+                                                                                                    layer-list
+                                                                                                    samples
+                                                                                                    {:width  500
+                                                                                                     :height 500
+                                                                                                     :x-min  -0.5
+                                                                                                     :x-max  5.5
+                                                                                                     :y-min  (->> all-samples-as-points
+                                                                                                                  (mapv first)
+                                                                                                                  (apply min))
+                                                                                                     :y-max  (->> all-samples-as-points
+                                                                                                                  (mapv first)
+                                                                                                                  (apply max))})]
+                                                                               [(off-center-dC-plot speleo-key
+                                                                                                    layer-list
+                                                                                                    samples
+                                                                                                    {:width  500
+                                                                                                     :height 500
+                                                                                                     :x-min  -0.5
+                                                                                                     :x-max  5.5
+                                                                                                     :y-min  (->> all-samples-as-points
+                                                                                                                  (mapv second)
+                                                                                                                  (apply min))
+                                                                                                     :y-max  (->> all-samples-as-points
+                                                                                                                  (mapv second)
+                                                                                                                  (apply max))})]])
+
+                                                 (plot-speleo speleo-key
+                                                              layer-list
+                                                              samples
+                                                              {:width  1000
+                                                               :height 1000
+                                                               :x-min  (->> all-samples-as-points
+                                                                            (mapv first)
+                                                                            (apply min))
+                                                               :x-max  (->> all-samples-as-points
+                                                                            (mapv first)
+                                                                            (apply max))
+                                                               :y-min  (->> all-samples-as-points
+                                                                            (mapv second)
+                                                                            (apply min))
+                                                               :y-max  (->> all-samples-as-points
+                                                                            (mapv second)
+                                                                            (apply max))})]])
+                  quickthing/svg2xml
+                  (spit (str "out/"
+                             (symbol speleo-key)
+                             ""
+                             ".svg"))))))
