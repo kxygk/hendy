@@ -292,7 +292,9 @@
   [speleo-key
    layers
    samples
-   & [{:keys [x-min
+   & [{:keys [width
+              height
+              x-min
               x-max
               y-min
               y-max]}]]
@@ -343,9 +345,11 @@
                                           (and (some? x-max)
                                                (some? y-max)) (conj [x-max
                                                                      y-max]))
-                                        {:x-name "Relative Positions"
-                                         :y-name "d-Oxygen"
-                                         :title  (str (symbol speleo-key))})]
+                                        (cond-> {:x-name "Relative Positions"
+                                                 :y-name "d-Oxygen"
+                                                 :title  (str (symbol speleo-key))}
+                                          (some? width)  (assoc :width width)
+                                          (some? height) (assoc :height height)))]
       (->> (-> axis
                #_(update :data
                          (fn [old-data]
@@ -378,12 +382,13 @@
                                                 [layer-points
                                                  color]
                                                 (quickthing/adjustable-text layer-points
-                                                                             {:scale   64
+                                                                            {:scale   64
                                                                              :attribs {:fill color}}))
                                               per-layer-points
-                                              colors))))))
-           thi.ng.geom.viz.core/svg-plot2d-cartesian
-           quickthing/svg-wrap
+                                              colors)))))
+               thi.ng.geom.viz.core/svg-plot2d-cartesian
+               (quickthing/svg-wrap [width
+                                     height]))
            quickthing/svg2xml
            (spit (str "out/"
                       (symbol speleo-key)
