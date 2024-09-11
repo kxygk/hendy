@@ -524,10 +524,10 @@
                                        :x-min  -0.5
                                        :x-max  5.5
                                        :y-min  (->> all-samples-as-points
-                                                    (mapv first)
+                                                    (mapv second)
                                                     (apply min))
                                        :y-max  (->> all-samples-as-points
-                                                    (mapv first)
+                                                    (mapv second)
                                                     (apply max))})
                   quickthing/svg2xml
                   (spit (str "out/"
