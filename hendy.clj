@@ -395,7 +395,8 @@
                                               colors)))))
                thi.ng.geom.viz.core/svg-plot2d-cartesian
                (quickthing/svg-wrap [width
-                                     height]))))))
+                                     height]
+                                    width))))))
 
 
 (defn
@@ -499,7 +500,8 @@
                                               colors)))))
                thi.ng.geom.viz.core/svg-plot2d-cartesian
                (quickthing/svg-wrap [width
-                                     height]))))))
+                                     height]
+                                    width))))))
 
 (->> sample-layers
      (mapv (fn plot-each-speleo
