@@ -219,7 +219,8 @@
                                                     color]
                                                    (quickthing/adjustable-text layer-points
                                                                                {:scale   64
-                                                                                :attribs {:fill color}}))
+                                                                                :attribs {:fill color
+                                                                                          :dy 12}})) ;; scale / 3
                                                  per-layer-letters
                                                  colors)))))
                   thi.ng.geom.viz.core/svg-plot2d-cartesian)
