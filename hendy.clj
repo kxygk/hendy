@@ -1,6 +1,7 @@
 (ns hendy
   "Injesting Rainus data - and analysis"
   (:use [clojure.set]
+        [clojure.math]
         [hashp.core])
   (:require [quickthing]
             [convertadoc]
@@ -76,6 +77,41 @@
 (->> samples
      (layer-samples :LL
                     :L1))
+;; => data/Result_20240827_corrected.csv [5 15]:
+;;    | Row | Identifier_1 | n |    d13C/12C |   dC_STDEV |    d18O/16O |   dO_STDEV | dC_corrected | dO_corrected | dC_mean_intercept | dC_mean_slop | dO_mean_intercept | dO_mean_slop | :sample-id | :sample-note |
+;;    |----:|--------------|--:|------------:|-----------:|------------:|-----------:|-------------:|-------------:|------------------:|-------------:|------------------:|-------------:|------------|--------------|
+;;    |  72 |          S55 | 6 | -8.75733333 | 0.04623323 | -8.28500000 | 0.07625964 |  -9.51834081 |  -7.12861551 |       -0.66081527 |   1.01144095 |        1.91859679 |   1.09199907 |     :LLL1A |              |
+;;    |  76 |          S56 | 6 | -9.22866667 | 0.02949086 | -6.09650000 | 0.05788538 |  -9.99506665 |  -4.73877555 |       -0.66081527 |   1.01144095 |        1.91859679 |   1.09199907 |     :LLL1B |              |
+;;    |  77 |          S57 | 6 | -9.42516667 | 0.02605304 | -5.96233333 | 0.04564768 | -10.19381479 |  -4.59226567 |       -0.66081527 |   1.01144095 |        1.91859679 |   1.09199907 |     :LLL1C |              |
+;;    |  78 |          S58 | 6 | -8.76600000 | 0.04607096 | -6.40033333 | 0.05508640 |  -9.52710664 |  -5.07056126 |       -0.66081527 |   1.01144095 |        1.91859679 |   1.09199907 |     :LLL1D |              |
+;;    |  79 |          S59 | 6 | -9.25050000 | 0.03215250 | -6.26733333 | 0.04873580 | -10.01714978 |  -4.92532539 |       -0.66081527 |   1.01144095 |        1.91859679 |   1.09199907 |     :LLL1E |              |
+
+(defn
+  table2dO-dC-errors
+  "Take a data table an extracts each row's data
+  and put it into a 3 term vector
+  [dO_corrected
+   dC_corrected
+   last letter of key
+   tooltop with `:sample-note` is applicable]"
+  [table]
+  (->> table
+       ds/rows
+       (map (fn extract-table-row
+              [row]
+              (let [sqrt-sample-num (sqrt (get row
+                                               "n"))]
+                [(get row
+                      "dO_corrected")
+                 (get row
+                      "dC_corrected")
+                 (/ (get row
+                         "dO_STDEV")
+                    sqrt-sample-num)
+                 (/ (get row
+                         "dC_STDEV")
+                    sqrt-sample-num)
+                 {:tooltip (:sample-note row)}])))))
 
 (defn
   table2dO-dC-letter-triplet
@@ -115,13 +151,20 @@
               x-max
               y-min
               y-max]}]]
-  (let [per-layer-points (->> layers
+  (let [per-layer-letters (->> layers
                               (mapv (fn layer-keys
                                       [layer]
                                       (layer-samples speleo-key
                                                      layer
                                                      samples)))
                               (mapv table2dO-dC-letter-triplet))
+        per-layer-errors (->> layers
+                              (mapv (fn layer-keys
+                                      [layer]
+                                      (layer-samples speleo-key
+                                                     layer
+                                                     samples)))
+                              (mapv table2dO-dC-errors))
         messy-points     (->> layers
                               (mapv (fn layer-keys
                                       [layer]
@@ -131,7 +174,7 @@
                                           (ds/filter-column :sample-note
                                                             some?))))
                               (mapv table2dO-dC-letter-triplet))]
-    (let [axis (quickthing/primary-axis (cond-> (apply concat per-layer-points)
+    (let [axis (quickthing/primary-axis (cond-> (apply concat per-layer-letters)
                                           (and (some? x-min) ;; conditionally add dummy for min/max
                                                (some? y-min)) (conj [x-min
                                                                      y-min])
@@ -163,10 +206,21 @@
                                   (flatten (mapv (fn points-to-colored-text
                                                    [layer-points
                                                     color]
+                                                   (quickthing/error-bars layer-points
+                                                                               {:scale   64
+                                                                                :attribs {:fill color}}))
+                                                 per-layer-errors
+                                                 colors)))))
+                  (update :data
+                          (fn [old-data]
+                            (into old-data
+                                  (flatten (mapv (fn points-to-colored-text
+                                                   [layer-points
+                                                    color]
                                                    (quickthing/adjustable-text layer-points
                                                                                {:scale   64
                                                                                 :attribs {:fill color}}))
-                                                 per-layer-points
+                                                 per-layer-letters
                                                  colors)))))
                   thi.ng.geom.viz.core/svg-plot2d-cartesian)
         (some? width) (quickthing/svg-wrap [width
