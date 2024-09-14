@@ -418,8 +418,7 @@
                                                 [layer-points
                                                  color]
                                                 (quickthing/error-bars layer-points
-                                                                       #_{:scale   64
-                                                                        :attribs {:fill color}}))
+                                                                       {:scale   64}))
                                               per-layer-errors
                                               colors)))))
                (update :data
@@ -553,8 +552,7 @@
                                                 [layer-points
                                                  color]
                                                 (quickthing/error-bars layer-points
-                                                                       #_{:scale   64
-                                                                        :attribs {:fill color}}))
+                                                                       {:scale   64}))
                                               per-layer-errors
                                               colors)))))
                (update :data
