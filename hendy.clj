@@ -55,14 +55,15 @@
 (-> samples
     (ds/write! "out/table.csv"))
 
-(defn layer-samples
+(defn
+  layer-samples
   [speleo-key
    layer-key
    samples]
   (-> samples
       (ds/filter-column :sample-id
                         (fn [id]
-                          (= #p (->> id
+                          (= (->> id
                                      symbol
                                      str
                                      (drop-last 1)
@@ -348,6 +349,33 @@
                                                                  :dO)
                                                              drill-letter])))
                                            (sort-by first)))))
+        per-layer-errors (->> per-layer-map
+                              (sort #(compare (-> %1
+                                                  (get :letter))
+                                              (-> %2
+                                                  (get :letter))))
+                              (mapv (fn [layer]
+                                      (->> layer
+                                           (map-indexed (fn make-x-pos
+                                                          [pos-index
+                                                           values]
+                                                          (let [drill-letter (-> values
+                                                                                 :letter)
+                                                                letter2index {\A 0
+                                                                              \B 1
+                                                                              \C 2
+                                                                              \D 3
+                                                                              \E 4
+                                                                              \F 5}]
+                                                            [(get letter2index
+                                                                  drill-letter)
+                                                             (-> values
+                                                                 :dO)
+                                                             nil
+                                                             #p (-> values
+                                                                 :dOerr)])))
+                                           (sort-by first)))))
+        #_#_
         messy-points     (->> layers
                               (mapv (fn layer-keys
                                       [layer]
@@ -382,6 +410,17 @@
                                                                         {:scale   32
                                                                          :attribs {:fill color}}))
                                               per-layer-points
+                                              colors)))))
+               (update :data
+                       (fn [old-data]
+                         (into old-data
+                               (flatten (mapv (fn points-to-colored-text
+                                                [layer-points
+                                                 color]
+                                                (quickthing/error-bars layer-points
+                                                                       #_{:scale   64
+                                                                        :attribs {:fill color}}))
+                                              per-layer-errors
                                               colors)))))
                (update :data
                        (fn [old-data]
@@ -443,6 +482,33 @@
                                                                  :dC)
                                                              drill-letter])))
                                            (sort-by first)))))
+        per-layer-errors (->> per-layer-map
+                              (sort #(compare (-> %1
+                                                  (get :letter))
+                                              (-> %2
+                                                  (get :letter))))
+                              (mapv (fn [layer]
+                                      (->> layer
+                                           (map-indexed (fn make-x-pos
+                                                          [pos-index
+                                                           values]
+                                                          (let [drill-letter (-> values
+                                                                                 :letter)
+                                                                letter2index {\A 0
+                                                                              \B 1
+                                                                              \C 2
+                                                                              \D 3
+                                                                              \E 4
+                                                                              \F 5}]
+                                                            [(get letter2index
+                                                                  drill-letter)
+                                                             (-> values
+                                                                 :dC)
+                                                             nil
+                                                             #p (-> values
+                                                                 :dCerr)])))
+                                           (sort-by first)))))
+        #_#_
         messy-points     (->> layers
                               (mapv (fn layer-keys
                                       [layer]
@@ -477,6 +543,17 @@
                                                                         {:scale   32
                                                                          :attribs {:fill color}}))
                                               per-layer-points
+                                              colors)))))
+               (update :data
+                       (fn [old-data]
+                         (into old-data
+                               (flatten (mapv (fn points-to-colored-text
+                                                [layer-points
+                                                 color]
+                                                (quickthing/error-bars layer-points
+                                                                       #_{:scale   64
+                                                                        :attribs {:fill color}}))
+                                              per-layer-errors
                                               colors)))))
                (update :data
                        (fn [old-data]
