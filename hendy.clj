@@ -317,26 +317,25 @@
               x-max
               y-min
               y-max]}]]
-  (let [per-layer-table (->> layers
+  (let [per-layer-map    (->> layers
                               (mapv (fn layer-keys
                                       [layer]
                                       (layer-samples speleo-key
                                                      layer
-                                                     samples))))
-        per-layer-points (->> per-layer-table
-                              (mapv table2maps)
-                              (mapv maps2xyletter-vecs)
+                                                     samples)))
+                              (mapv table2maps))
+        per-layer-points (->> per-layer-map
                               (sort #(compare (-> %1
-                                                  (get 2))
+                                                  (get :letter))
                                               (-> %2
-                                                  (get 2))))
+                                                  (get :letter))))
                               (mapv (fn [layer]
                                       (->> layer
                                            (map-indexed (fn make-x-pos
                                                           [pos-index
                                                            values]
-                                                          (let [drill-letter #p (-> values
-                                                                                    (get 2))
+                                                          (let [drill-letter (-> values
+                                                                                 :letter)
                                                                 letter2index {\A 0
                                                                               \B 1
                                                                               \C 2
@@ -346,7 +345,7 @@
                                                             [(get letter2index
                                                                   drill-letter)
                                                              (-> values
-                                                                 first)
+                                                                 :dO)
                                                              drill-letter])))
                                            (sort-by first)))))
         messy-points     (->> layers
@@ -413,25 +412,25 @@
               x-max
               y-min
               y-max]}]]
-  (let [per-layer-points (->> layers
+  (let [per-layer-map    (->> layers
                               (mapv (fn layer-keys
                                       [layer]
                                       (layer-samples speleo-key
                                                      layer
                                                      samples)))
-                              (mapv table2maps)
-                              (mapv maps2xyletter-vecs)
+                              (mapv table2maps))
+        per-layer-points (->> per-layer-map
                               (sort #(compare (-> %1
-                                                  (get 2))
+                                                  (get :letter))
                                               (-> %2
-                                                  (get 2))))
+                                                  (get :letter))))
                               (mapv (fn [layer]
                                       (->> layer
                                            (map-indexed (fn make-x-pos
                                                           [pos-index
                                                            values]
-                                                          (let [drill-letter #p (-> values
-                                                                                    (get 2))
+                                                          (let [drill-letter (-> values
+                                                                                 :letter)
                                                                 letter2index {\A 0
                                                                               \B 1
                                                                               \C 2
@@ -441,7 +440,7 @@
                                                             [(get letter2index
                                                                   drill-letter)
                                                              (-> values
-                                                                 second)
+                                                                 :dC)
                                                              drill-letter])))
                                            (sort-by first)))))
         messy-points     (->> layers
