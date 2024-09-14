@@ -87,58 +87,74 @@
 ;;    |  79 |          S59 | 6 | -9.25050000 | 0.03215250 | -6.26733333 | 0.04873580 | -10.01714978 |  -4.92532539 |       -0.66081527 |   1.01144095 |        1.91859679 |   1.09199907 |     :LLL1E |              |
 
 (defn
-  table2dO-dC-errors
-  "Take a data table an extracts each row's data
-  and put it into a 3 term vector
-  [dO_corrected
-   dC_corrected
-   last letter of key
-   tooltop with `:sample-note` is applicable]"
+  table2maps
+  "Take a data table and convert it to a clean seq of maps"
   [table]
   (->> table
        ds/rows
-       (map (fn extract-table-row
+       (mapv (fn extract-table-row
               [row]
               (let [sqrt-sample-num (sqrt (get row
                                                "n"))]
-                [(get row
-                      "dO_corrected")
-                 (get row
-                      "dC_corrected")
-                 (/ (get row
-                         "dO_STDEV")
-                    sqrt-sample-num)
-                 (/ (get row
-                         "dC_STDEV")
-                    sqrt-sample-num)
-                 {:tooltip (:sample-note row)}])))))
+                {:dO (get row
+                          "dO_corrected")
+                 :dC (get row
+                          "dC_corrected")
+                 :dOerr (/ (get row
+                                "dO_STDEV")
+                           sqrt-sample-num)
+                 :dCerr (/ (get row
+                                "dC_STDEV")
+                           sqrt-sample-num)
+                 :letter (-> row
+                             :sample-id
+                             symbol
+                             str
+                             last)
+                 :tooltip (:sample-note row)})))))
 
 (defn
-  table2dO-dC-letter-triplet
-  "Take a data table an extracts each row's data
-  and put it into a 3 term vector
-  [dO_corrected
-   dC_corrected
-   last letter of key
-   tooltop with `:sample-note` is applicable]"
-  [table]
-  (->> table
-       ds/rows
-       (map (fn extract-table-row
-              [row]
-              (let [drill-letter (-> row
-                                     :sample-id
-                                     symbol
-                                     str
-                                     last)
-                    dO           (get row
-                                      "dO_corrected")
-                    dC           (get row
-                                      "dC_corrected")]
-                [dO
-                 dC
-                 drill-letter
-                 {:tooltip (:sample-note row)}])))))
+  maps2xyletter-vecs
+  "Convert the seq of maps into a seq of vecs
+  each vec is
+  [x
+   y
+   letter
+   tooltip]"
+  [maps]
+  (->> maps
+       (map (fn [row]
+               [(-> row
+                    :dO)
+                (-> row
+                    :dC)
+                (-> row
+                    :letter)
+                {:tooltip (-> row
+                              :tooltip)}]))))
+
+(defn
+  maps2xyerror-vecs
+  "Convert the seq of maps into a seq of vecs
+  each vec is
+  [x
+   y
+   x-err
+   y-err
+   tooltip]"
+  [maps]
+  (->> maps
+       (map (fn [row]
+               [(-> row
+                    :dO)
+                (-> row
+                    :dC)
+                (-> row
+                    :dOerr)
+                (-> row
+                    :dCerr)
+                {:tooltip (-> row
+                              :tooltip)}]))))
 
 (defn
   plot-speleo
@@ -152,19 +168,21 @@
               y-min
               y-max]}]]
   (let [per-layer-letters (->> layers
-                              (mapv (fn layer-keys
-                                      [layer]
-                                      (layer-samples speleo-key
-                                                     layer
-                                                     samples)))
-                              (mapv table2dO-dC-letter-triplet))
-        per-layer-errors (->> layers
-                              (mapv (fn layer-keys
-                                      [layer]
-                                      (layer-samples speleo-key
-                                                     layer
-                                                     samples)))
-                              (mapv table2dO-dC-errors))
+                               (mapv (fn layer-keys
+                                       [layer]
+                                       (layer-samples speleo-key
+                                                      layer
+                                                      samples)))
+                               (mapv table2maps)
+                               (mapv maps2xyletter-vecs))
+        per-layer-errors  (->> layers
+                               (mapv (fn layer-keys
+                                       [layer]
+                                       (layer-samples speleo-key
+                                                      layer
+                                                      samples)))
+                               (mapv table2maps)
+                               (mapv maps2xyerror-vecs))
         messy-points     (->> layers
                               (mapv (fn layer-keys
                                       [layer]
@@ -173,7 +191,8 @@
                                                          samples)
                                           (ds/filter-column :sample-note
                                                             some?))))
-                              (mapv table2dO-dC-letter-triplet))]
+                               (mapv table2maps)
+                               (mapv maps2xyletter-vecs))]
     (let [axis (quickthing/primary-axis (cond-> (apply concat per-layer-letters)
                                           (and (some? x-min) ;; conditionally add dummy for min/max
                                                (some? y-min)) (conj [x-min
@@ -207,8 +226,8 @@
                                                    [layer-points
                                                     color]
                                                    (quickthing/error-bars layer-points
-                                                                               {:scale   64
-                                                                                :attribs {:fill color}}))
+                                                                          {:scale   64
+                                                                           :attribs {:fill color}}))
                                                  per-layer-errors
                                                  colors)))))
                   (update :data
@@ -220,6 +239,7 @@
                                                    (quickthing/adjustable-text layer-points
                                                                                {:scale   64
                                                                                 :attribs {:fill color
+                                                                                          ;;:dx 10
                                                                                           :dy 12}})) ;; scale / 3
                                                  per-layer-letters
                                                  colors)))))
@@ -237,10 +257,26 @@
                  second)
              samples)
 
+
+#_
+(->> (-> sample-layers
+                 first
+                 second)
+     (mapv (fn layer-keys
+             [layer]
+             (layer-samples (-> sample-layers
+                                first
+                                first)
+                            layer
+                            samples)))
+     (mapv table2maps)
+     (mapv maps2xyletter-vecs))
+
 (def
   all-samples-as-points
   (-> samples
-      table2dO-dC-letter-triplet))
+      table2maps
+      maps2xyletter-vecs))
 #_
 (->> sample-layers
      (mapv (fn plot-each-speleo
@@ -281,13 +317,15 @@
               x-max
               y-min
               y-max]}]]
-  (let [per-layer-points (->> layers
+  (let [per-layer-table (->> layers
                               (mapv (fn layer-keys
                                       [layer]
                                       (layer-samples speleo-key
                                                      layer
-                                                     samples)))
-                              (mapv table2dO-dC-letter-triplet)
+                                                     samples))))
+        per-layer-points (->> per-layer-table
+                              (mapv table2maps)
+                              (mapv maps2xyletter-vecs)
                               (sort #(compare (-> %1
                                                   (get 2))
                                               (-> %2
@@ -319,7 +357,8 @@
                                                          samples)
                                           (ds/filter-column :sample-note
                                                             some?))))
-                              (mapv table2dO-dC-letter-triplet))]
+                              (mapv table2maps)
+                              (mapv maps2xyletter-vecs))]
     (let [axis (quickthing/primary-axis (cond-> (apply concat
                                                        per-layer-points)
                                           (and (some? x-min) ;; conditionally add dummy for min/max
@@ -380,7 +419,8 @@
                                       (layer-samples speleo-key
                                                      layer
                                                      samples)))
-                              (mapv table2dO-dC-letter-triplet)
+                              (mapv table2maps)
+                              (mapv maps2xyletter-vecs)
                               (sort #(compare (-> %1
                                                   (get 2))
                                               (-> %2
@@ -412,7 +452,8 @@
                                                          samples)
                                           (ds/filter-column :sample-note
                                                             some?))))
-                              (mapv table2dO-dC-letter-triplet))]
+                              (mapv table2maps)
+                              (mapv maps2xyletter-vecs))]
     (let [axis (quickthing/primary-axis (cond-> (apply concat
                                                        per-layer-points)
                                           (and (some? x-min) ;; conditionally add dummy for min/max
