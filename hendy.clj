@@ -240,8 +240,8 @@
                                                    (quickthing/adjustable-text layer-points
                                                                                {:scale   64
                                                                                 :attribs {:fill color
-                                                                                          ;;:dx 10
-                                                                                          :dy 12}})) ;; scale / 3
+                                                                                          :text-anchor "start"
+                                                                                          :dominant-baseline "hanging"}}))
                                                  per-layer-letters
                                                  colors)))))
                   thi.ng.geom.viz.core/svg-plot2d-cartesian)
@@ -430,7 +430,9 @@
                                                  color]
                                                 (quickthing/adjustable-text layer-points
                                                                             {:scale   64
-                                                                             :attribs {:fill color}}))
+                                                                             :attribs {:fill color
+                                                                                       :text-anchor "start"
+                                                                                       :dominant-baseline "hanging"}}))
                                               per-layer-points
                                               colors)))))
                thi.ng.geom.viz.core/svg-plot2d-cartesian
@@ -563,7 +565,9 @@
                                                  color]
                                                 (quickthing/adjustable-text layer-points
                                                                             {:scale   64
-                                                                             :attribs {:fill color}}))
+                                                                             :attribs {:fill color
+                                                                                       :text-anchor "start"
+                                                                                       :dominant-baseline "hanging"}}))
                                               per-layer-points
                                               colors)))))
                thi.ng.geom.viz.core/svg-plot2d-cartesian
